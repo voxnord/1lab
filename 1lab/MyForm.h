@@ -817,7 +817,10 @@ namespace My1lab {
 			MessageBox::Show(info_p2, "Информация о программе", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 
-        private: System::Void err_check_Click(System::Object^ sender, System::EventArgs^ e) {}
+        private: System::Void err_check_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+		
+		}
 
 };
 }
