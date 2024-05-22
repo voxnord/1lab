@@ -171,6 +171,7 @@ namespace My1lab {
 			this->input_field1->Name = L"input_field1";
 			this->input_field1->Size = System::Drawing::Size(80, 26);
 			this->input_field1->TabIndex = 5;
+			this->input_field1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::input_field1_KeyPress);
 			// 
 			// formula_of_recursion_label
 			// 
@@ -432,7 +433,7 @@ namespace My1lab {
 
 		}
 #pragma endregion
-		// Первая программа.
+		/*Первая программа.*/
 		int recursion_1(unsigned int n)
 		{
 			++count; // Фиксация количества рекурсивных вызовов.
@@ -445,11 +446,11 @@ namespace My1lab {
 			{
 				return 2;
 			}
-			else if (n > 2 && n % 2 == 0)  // > 2 и четное 
+			else if (n > 2 && n % 2 == 0)  // > 2 и четное.
 			{
 				return ((8 * n + recursion_1(n - 3)) / 9);
 			}
-			else if (n > 2 && n % 2 != 0) // > 2 и не чётное
+			else if (n > 2 && n % 2 != 0) // > 2 и не чётное.
 			{
 				return ((4 * n + recursion_1(n - 1) + recursion_1(n - 2)) / 7);
 			}
@@ -467,7 +468,7 @@ namespace My1lab {
 			{
 				return (n + 2 * recursion_2(n - 1));
 			}
-			else if (n > 1 && n % 2 != 0) // > 1 и не чётное
+			else if (n > 1 && n % 2 != 0) // > 1 и не чётное.
 			{
 				return (1 + 3 * recursion_2(n - 2));
 			}
@@ -478,7 +479,7 @@ namespace My1lab {
 
 		bool ValidacityCheck1() // Проверка 1 на корректность введеных значений.
 		{
-			String^ error_overflow = ""; // Изначальное значение для текстовой переменной, чтобы её можно было менять удобнее
+			String^ error_overflow = ""; // Изначальное значение для текстовой переменной, чтобы её можно было менять удобнее.
 
 			try
 			{
@@ -489,13 +490,13 @@ namespace My1lab {
 					if (dataI > high_valid_value1) // проверка макс. значения 1
 					{
 						error_overflow = "Введённое значение превышает допустимое " + high_valid_value1 + "!\nПосмотрите информацию, чтобы узнать подробнее.";
-						throw error_overflow; // Выдаёт ошибку с заданным текстом 
+						throw error_overflow; // Выдаёт ошибку с заданным текстом.
 					}
 					
-					else if (dataI < low_valid_value1) // проверка мин. значения 1
+					else if (dataI < low_valid_value1) // проверка мин. значения 1.
 					{
 						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value1 + "!";
-						throw error_overflow; // Выдаёт ошибку с заданным текстом
+						throw error_overflow; // Выдаёт ошибку с заданным текстом.
 					}
 				}
 			}
@@ -518,57 +519,57 @@ namespace My1lab {
 
 		bool ValidacityCheck2() // Проверка 2 на корректность введеных значений.
 		{
-			String^ error_overflow = "";
+			String^ error_overflow = ""; // Изначальное значение для текстовой переменной, чтобы её можно было менять удобнее.
 
 			try
 			{
-				if (this->recursionbtn2->Checked == true && this->input_field1->Text != "") 
+				if (this->recursionbtn2->Checked == true && this->input_field1->Text != "")  // Проверяется, не является ли текст введенного значения пустым и выбрана ли рекурсионная формула 2.
 				{
-					int dataI = System::Convert::ToInt32(this->input_field1->Text);
+					int dataI = System::Convert::ToInt32(this->input_field1->Text); // Целочисленному значению присваивается преобразованный текст из поля ввода.
 
-					if (dataI > high_valid_value2) // проверка макс. значения 2
+					if (dataI > high_valid_value2) // проверка макс. значения 2.
 					{
 						error_overflow = "Введённое значение превышает допустимое " + high_valid_value2 + "!\nПосмотрите информацию, чтобы узнать подробнее.";
-						throw error_overflow; // Выдаёт ошибку с заданным текстом
+						throw error_overflow; // Выдаёт ошибку с заданным текстом.
 					}
-					else if (dataI < low_valid_value2) // проверка мин. значения 2
+					else if (dataI < low_valid_value2) // проверка мин. значения 2.
 					{
 						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value2 + "!";
-						throw error_overflow; // Выдаёт ошибку с заданным текстом
+						throw error_overflow; // Выдаёт ошибку с заданным текстом.
 					}
 				}
 			}
-			catch (String^ error_overflow)
+			catch (String^ error_overflow) // Берёт из try полученное значение текста ошибки.
 			{
 				this->input_field1->ForeColor = Color::Red;
-				System::Windows::Forms::DialogResult result = MessageBox::Show(error_overflow, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				System::Windows::Forms::DialogResult result = MessageBox::Show(error_overflow, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error); // Выводит диалоговое окно result с полученной из условия ошибкой с кнопкой OK и иконкой Error.
 
-				if (result == System::Windows::Forms::DialogResult::OK)
+				if (result == System::Windows::Forms::DialogResult::OK) // Условие при нажатии кнопки OK очищаются поля и убираются галочки.
 				{
-					this->input_field1->Text = "";
-					this->input_field1->ForeColor = Color::Black;
-					this->recursionbtn1->Checked = false;
-					this->recursionbtn2->Checked = false;
+					this->input_field1->Text = "";                // Очищает поле ввода.
+					this->input_field1->ForeColor = Color::Black; // Меняет текст обратно на черный.
+					this->recursionbtn1->Checked = false;         // Убирает галочку с кнопки рекурскии 1.
+					this->recursionbtn2->Checked = false;         // Убирает галочку с кнопки рекурскии 2.
 				}
 			}
 
 			return 0;
 		}
 
-		private: System::Void clr_inp_field1_Click(System::Object^ sender, System::EventArgs^ e)
+		private: System::Void clr_inp_field1_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей и галочек.
 		{
-			this->recursionbtn1->Checked = false;
-			this->recursionbtn2->Checked = false;
-			this->input_field1->Text = "";
-			this->formula_of_recursion_label->Text = "";
-			this->Rresult->Text = "";
-			this->Ncount->Text = "";
+			this->recursionbtn1->Checked = false;        // Убирает галочку с кнопки рекурскии 1.
+			this->recursionbtn2->Checked = false;        // Убирает галочку с кнопки рекурскии 2.
+			this->input_field1->Text = "";               // Очищает поле ввода.
+			this->formula_of_recursion_label->Text = ""; // Очищает поле с информацией о выбранной рекурсивной функции.
+			this->Rresult->Text = "";                    // Очищает поле результата.
+			this->Ncount->Text = "";                     // Очищает поле подсчёта вызовов.
 		}
 
-		private: System::Void recursionbtn1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) // Проверяет нажата ли кнопка первой рекурсивной формулы
+		private: System::Void recursionbtn1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) // Проверяет нажата ли кнопка первой рекурсивной формулы.
 		{
 
-			if (this->recursionbtn1->Checked == true)
+			if (this->recursionbtn1->Checked == true) // Условие для вывода текста первой рекурсивной функции.
 			{
 				this->formula_of_recursion_label->Text =
 					"F(n) = 1, при n = 1;\r\n"
@@ -580,39 +581,40 @@ namespace My1lab {
 
 			else
 			{
-				this->formula_of_recursion_label->Text = "";
+				this->formula_of_recursion_label->Text = ""; // Очистка поля вывода текста в случае выбора другой рекурсивной функции.
 			}
 
 		}
 
-		private: System::Void recursionbtn2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) // Проверяет нажата ли кнопка второй рекурсивной формулы
+		private: System::Void recursionbtn2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) // Проверяет нажата ли кнопка второй рекурсивной формулы.
 		{
 
-			if (this->recursionbtn2->Checked == true)
+			if (this->recursionbtn2->Checked == true) // Условие для вывода текста второй рекурсивной функции.
 			{
 				this->formula_of_recursion_label->Text = 
-					"F(n) = 1, при n = 1;\n\r" 
+					"F(n) = 1, при n = 1;\r\n" 
 					"F(n) = n + 2 * F(n - 1), если n чётно;\r\n"
 					"F(n) = 1 + 3 * F(n - 2), если n > 1 и при этом n нечётно.";
 				choice_check = false;
 			}
-			else {
-				this->formula_of_recursion_label->Text = "";
+			else 
+			{
+				this->formula_of_recursion_label->Text = ""; // Очистка поля вывода текста в случае выбора другой рекурсивной функции.
 			}
 		}
 
 		private: System::Void button_start1_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 
-			count = 0;
+			count = 0; // Начальное значение для вызовов рекурсивной функции.
 
-			if (this->input_field1->Text == "") 
+			if (this->input_field1->Text == "") // Условие для проверки на наличие значений в поле ввода.
 			{
 				MessageBox::Show("Поле ввода пусто!", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
-			if (this->recursionbtn1->Checked == false && this->recursionbtn2->Checked == false) 
+			if (this->recursionbtn1->Checked == false && this->recursionbtn2->Checked == false)  // Условие для проверки на наличие выбора рекурсивной функции.
 			{
 				MessageBox::Show("Не выбрана ни одна из рекурсивных формул!", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
@@ -620,42 +622,42 @@ namespace My1lab {
 
 			if (this->input_field1->Text != "") 
 			{
-				if(input_field1->Text->Length > 8)
+				if(input_field1->Text->Length > 8) // Проверка на длину введённого значения.
 				{
 					MessageBox::Show("Длина введенного числа превышает максимальное допустимое значение.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					return;
 				}
 
 				int exclude;
-				if (!Int32::TryParse(input_field1->Text, exclude))
+				if (!Int32::TryParse(input_field1->Text, exclude)) // Условие исключает нечисловые значения.
 				{
-					// Если введенное значение не является числом, выводим сообщение об ошибке
+					// Если введенное значение не является числом, выводим сообщение об ошибке.
 					MessageBox::Show("Поле ввода должно содержать только числовые значения и не содержать пробелов между цифрами/числами!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					return;
 				}
 
-				this->N = System::Convert::ToInt32(this->input_field1->Text);
+				this->N = System::Convert::ToInt32(this->input_field1->Text); // Преобразованный текст из поля ввода присваевается глобальной переменной N.
 
-				if (ValidacityCheck1() == true)
+				if (ValidacityCheck1() == true) // Проверяет допустимые значения через функцию ValidacityCheck1 и снимает флажки, если есть недопустимые значения.
 				{
 					this->recursionbtn1->Checked = false;
 					this->recursionbtn2->Checked = false;
 				}
 
-				if (ValidacityCheck2() == true)
+				if (ValidacityCheck2() == true) // Проверяет допустимые значения через функцию ValidacityCheck2 и снимает флажки, если есть недопустимые значения.
 				{
 					this->recursionbtn1->Checked = false;
 					this->recursionbtn2->Checked = false;
 				}
 
-				if (this->recursionbtn1->Checked || this->recursionbtn2->Checked)
+				if (this->recursionbtn1->Checked || this->recursionbtn2->Checked) // Проверяет нажата ли какая-либо из рекурсий.
 				{
-					if (choice_check == true)
+					if (choice_check == true) // Проверка для первой рекурсии.
 					{
 						this->Rresult->Text = System::Convert::ToString(recursion_1(N));
 						this->Ncount->Text = System::Convert::ToString(count);
 					}
-					else if (choice_check == false)
+					else if (choice_check == false) // Проверка для второй рекурсии.
 					{
 						this->Rresult->Text = System::Convert::ToString(recursion_2(N));
 						this->Ncount->Text = System::Convert::ToString(count);
@@ -664,7 +666,7 @@ namespace My1lab {
 			}
 		}
         
-        private: System::Void info1_Click(System::Object^ sender, System::EventArgs^ e) 
+        private: System::Void info1_Click(System::Object^ sender, System::EventArgs^ e) // Информационное окно 1.
 		{
 			String^ info_p1 = 
 				"1) Для ввода значений введите данные в поле ввода (максимальное значение - " + high_valid_value1 + ", минимальное - " + low_valid_value1 + " для рекурсии 1, максимальное значение - " + high_valid_value2 + ", минимальное - " + low_valid_value2 + " для рекурсии 2);\n\n"
@@ -674,20 +676,20 @@ namespace My1lab {
 			MessageBox::Show(info_p1, "Информация о программе", MessageBoxButtons::OK, MessageBoxIcon::Information);
         }
 
-		// Вторая программа.
-		void recursion_3(array<String^>^ numbers, int index) 
+		/*Вторая программа.*/
+		void recursion_3(array<String^>^ numbers, int index) // Объявление рекурсивной функции с параметрами: 1) массив строк numbers для массива введенных значений; 2) Целочисленное index для индексации значений в массиве.
 		{
-			if (numbers[index] == "0") 
+			if (numbers[index] == "0")  // Проверяет равен ли элемент массива с текущим индексом 0.
 			{
-				return;
+				return; // Если элемент равен "0", функция прекращает выполнение и возвращает управление вызывающему коду.
 			}
 
-			if ((index + 1) % 2 != 0) 
+			if ((index + 1) % 2 != 0) // Проверка, является ли индекс плюс один нечетным числом для выбора через один.
 			{
-				out_label->Text += numbers[index] + "\r\n";
+				out_label->Text += numbers[index] + "\r\n"; // Если индекс плюс один нечетный, то добавляем текущий элемент массива и перенос новой строки в поле вывода.
 			}
 
-			recursion_3(numbers, index + 1);
+			recursion_3(numbers, index + 1); // Рекурсивный вызов функции с увеличенным на единицу индексом для проверки последующих элементов.
 		}
 
 		private: System::Void clr_inp_field2_Click(System::Object^ sender, System::EventArgs^ e) 
@@ -702,15 +704,26 @@ namespace My1lab {
 			}
 		}
 
-		private: System::Void input_field2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
+		private: System::Void input_field1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы
+		{
+				if (en->KeyChar == (char)Keys::Enter)
+				{
+					// Вызываем обработчик события нажатия кнопки button_start1
+					button_start1_Click(sender, en);
+					// Предотвращаем дальнейшую обработку нажатия клавиши Enter
+					en->Handled = true;
+				}
+		}
+
+		private: System::Void input_field2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы
 		{
 			//Проверяем, нажата ли клавиша Enter
-			if (e->KeyChar == (char)Keys::Enter)
+			if (en->KeyChar == (char)Keys::Enter)
 			{
 				// Вызываем обработчик события нажатия кнопки input_button
-				input_button_Click(sender, e);
+				input_button_Click(sender, en);
 				// Предотвращаем дальнейшую обработку нажатия клавиши Enter
-				e->Handled = true;
+				en->Handled = true;
 			}
 		}
 
@@ -789,7 +802,7 @@ namespace My1lab {
 			
 		}
         
-        private: System::Void info2_Click(System::Object^ sender, System::EventArgs^ e) 
+        private: System::Void info2_Click(System::Object^ sender, System::EventArgs^ e) // Информационное окно 2.
 		{
 			String^ info_p2 = 
 				"Программа определяет нечетные числа в заданной пользователем последовательности:\n\n"
