@@ -478,28 +478,28 @@ namespace My1lab {
 
 		bool ValidacityCheck1() // Проверка 1 на корректность введеных значений.
 		{
-			String^ error_overflow = "";
+			String^ error_overflow = ""; // Изначальное значение для текстовой переменной, чтобы её можно было менять удобнее
 
 			try
 			{
 				if (this->recursionbtn1->Checked == true && this->input_field1->Text != "") // Проверяется, не является ли текст введенного значения пустым и выбрана ли рекурсионная формула 1.
 				{
-					int dataI = System::Convert::ToInt32(this->input_field1->Text); // Если да, то он конвертируется в целое число(dataI).
+					int dataI = System::Convert::ToInt32(this->input_field1->Text); // Текст из поля ввода конвертируется в целое число(dataI).
 
-					if (dataI > high_valid_value1)
+					if (dataI > high_valid_value1) // проверка макс. значения 1
 					{
 						error_overflow = "Введённое значение превышает допустимое " + high_valid_value1 + "!\nПосмотрите информацию, чтобы узнать подробнее.";
-						throw error_overflow;
+						throw error_overflow; // Выдаёт ошибку с заданным текстом 
 					}
 					
-					else if (dataI < low_valid_value1)
+					else if (dataI < low_valid_value1) // проверка мин. значения 1
 					{
 						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value1 + "!";
-						throw error_overflow;
+						throw error_overflow; // Выдаёт ошибку с заданным текстом
 					}
 				}
 			}
-			catch (String^ error_overflow) // Берёт из try полученное значение.
+			catch (String^ error_overflow) // Берёт из try полученное значение текста ошибки.
 			{
 				this->input_field1->ForeColor = Color::Red; // Подсветка текста в поле ввода красным.
 				System::Windows::Forms::DialogResult result = MessageBox::Show(error_overflow, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error); // Выводит диалоговое окно result с полученной из условия ошибкой с кнопкой OK и иконкой Error.
@@ -526,13 +526,15 @@ namespace My1lab {
 				{
 					int dataI = System::Convert::ToInt32(this->input_field1->Text);
 
-					if (dataI > high_valid_value2) {
+					if (dataI > high_valid_value2) // проверка макс. значения 2
+					{
 						error_overflow = "Введённое значение превышает допустимое " + high_valid_value2 + "!\nПосмотрите информацию, чтобы узнать подробнее.";
-						throw error_overflow;
+						throw error_overflow; // Выдаёт ошибку с заданным текстом
 					}
-					else if (dataI < low_valid_value2) {
+					else if (dataI < low_valid_value2) // проверка мин. значения 2
+					{
 						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value2 + "!";
-						throw error_overflow;
+						throw error_overflow; // Выдаёт ошибку с заданным текстом
 					}
 				}
 			}
