@@ -30,10 +30,10 @@ namespace My1lab {
 		}
 
 		// Пользовательские поля
-	private: unsigned short int n;							// Глобальная переменна, используемая для обозначения параметра рекурсивной функцию, в области 1 и 2 рекурсии
-    private: unsigned int N;							    // Глобальная переменна, используемая для передачи значения введёного в поле ввода в параметр n рекурсивной функции 1 или 2
-	private: unsigned int count = 0;						// Глобальная переменна, используемая для фиксации количества рекурсивных вызовов
-	private: bool choice_check;								// Булевая переменная, отображающая выбранную рекурсию
+	private: unsigned short int n;   // Глобальная переменна, используемая для обозначения параметра рекурсивной функцию, в области 1 и 2 рекурсии
+    private: unsigned int N;		 // Глобальная переменна, используемая для передачи значения введёного в поле ввода в параметр n рекурсивной функции 1 или 2
+	private: unsigned int count = 0; // Глобальная переменна, используемая для фиксации количества рекурсивных вызовов
+	private: bool choice_check;		 // Булевая переменная, отображающая выбранную рекурсию
 
 	private: System::Windows::Forms::Button^ button_start1;
 	private: System::Windows::Forms::RadioButton^ recursionbtn1;
@@ -473,11 +473,11 @@ namespace My1lab {
 			}
 		}
 
+		int high_valid_value1{ 70 }, low_valid_value1{ 1 };
+		int high_valid_value2{ 20000 }, low_valid_value2{ 1 };
 
 		bool ValidacityCheck1() // Проверка 1 на корректность введеных значений.
 		{
-
-			int high_valid_value{ 70 }, low_valid_value{ 1 };
 			String^ error_overflow = "";
 
 			try
@@ -486,15 +486,15 @@ namespace My1lab {
 				{
 					int dataI = System::Convert::ToInt32(this->input_field1->Text); // Если да, то он конвертируется в целое число(dataI).
 
-					if (dataI > high_valid_value)
+					if (dataI > high_valid_value1)
 					{
-						error_overflow = "Введённое значение превышает допустимое " + high_valid_value + "!\nПосмотрите информацию, чтобы узнать подробнее.";
+						error_overflow = "Введённое значение превышает допустимое " + high_valid_value1 + "!\nПосмотрите информацию, чтобы узнать подробнее.";
 						throw error_overflow;
 					}
 					
-					else if (dataI < low_valid_value)
+					else if (dataI < low_valid_value1)
 					{
-						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value + "!";
+						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value1 + "!";
 						throw error_overflow;
 					}
 				}
@@ -506,10 +506,10 @@ namespace My1lab {
 
 				if (result == System::Windows::Forms::DialogResult::OK) // Условие при нажатии кнопки OK очищаются поля и убираются галочки.  
 				{
-					this->input_field1->Text = ""; // Очищает поле ввода.
+					this->input_field1->Text = "";                // Очищает поле ввода.
 					this->input_field1->ForeColor = Color::Black; // Меняет текст обратно на черный.
-					this->recursionbtn1->Checked = false; // Убирает галочку с кнопки рекурскии 1.
-					this->recursionbtn2->Checked = false; // Убирает галочку с кнопки рекурскии 2.
+					this->recursionbtn1->Checked = false;         // Убирает галочку с кнопки рекурскии 1.
+					this->recursionbtn2->Checked = false;         // Убирает галочку с кнопки рекурскии 2.
 				}
 			}
 			return 0;
@@ -518,8 +518,6 @@ namespace My1lab {
 
 		bool ValidacityCheck2() // Проверка 2 на корректность введеных значений.
 		{
-
-			int high_valid_value{ 21187 }, low_valid_value{ 1 };
 			String^ error_overflow = "";
 
 			try
@@ -528,12 +526,12 @@ namespace My1lab {
 				{
 					int dataI = System::Convert::ToInt32(this->input_field1->Text);
 
-					if (dataI > high_valid_value) {
-						error_overflow = "Введённое значение превышает допустимое " + high_valid_value + "!\nПосмотрите информацию, чтобы узнать подробнее.";
+					if (dataI > high_valid_value2) {
+						error_overflow = "Введённое значение превышает допустимое " + high_valid_value2 + "!\nПосмотрите информацию, чтобы узнать подробнее.";
 						throw error_overflow;
 					}
-					else if (dataI < low_valid_value) {
-						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value + "!";
+					else if (dataI < low_valid_value2) {
+						error_overflow = "Число введённое вами не должно быть меньше " + low_valid_value2 + "!";
 						throw error_overflow;
 					}
 				}
@@ -667,7 +665,7 @@ namespace My1lab {
         private: System::Void info1_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			String^ info_p1 = 
-				"1) Для ввода значений введите данные в поле ввода (максимальное значение - 70, минимальное - 1 для рекурсии 1, максимальное значение - 21187, минимальное - 1 для рекурсии 2);\n\n"
+				"1) Для ввода значений введите данные в поле ввода (максимальное значение - " + high_valid_value1 + ", минимальное - " + low_valid_value1 + " для рекурсии 1, максимальное значение - " + high_valid_value2 + ", минимальное - " + low_valid_value2 + " для рекурсии 2);\n\n"
 				"2) Выберите вариант рекурсивной функции. После выбора ниже будет выведена формула выбранной функции;\n\n"
 				"3) Нажмине кнопку \"Старт\" для запуска рекурсии;\n\n4) После запуска рекурсии будет выведен результат рекурсивных вычислений и количество вызовов функции.\n\n"
 				"Примечание: Введение нечисловых значений и превышение лимита элементов в строке в 8 символов выведет окно с предупреждением.";
