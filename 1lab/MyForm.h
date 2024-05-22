@@ -433,7 +433,9 @@ namespace My1lab {
 
 		}
 #pragma endregion
+		/////////////////////
 		/*Первая программа.*/
+		/////////////////////
 		int recursion_1(unsigned int n)
 		{
 			++count; // Фиксация количества рекурсивных вызовов.
@@ -685,8 +687,9 @@ namespace My1lab {
 				"Примечание: Введение нечисловых значений и превышение лимита элементов в строке в 8 символов выведет окно с предупреждением.";
 			MessageBox::Show(info_p1, "Информация о программе", MessageBoxButtons::OK, MessageBoxIcon::Information);
         }
-
+		/////////////////////
 		/*Вторая программа.*/
+		/////////////////////
 		void recursion_3(array<String^>^ numbers, int index) // Объявление рекурсивной функции с параметрами: 1) массив строк numbers для массива введенных значений; 2) Целочисленное index для индексации значений в массиве.
 		{
 			if (numbers[index] == "0")  // Проверяет равен ли элемент массива с текущим индексом 0.
@@ -701,6 +704,7 @@ namespace My1lab {
 
 			recursion_3(numbers, index + 1); // Рекурсивный вызов функции с увеличенным на единицу индексом для проверки последующих элементов.
 		}
+
 
 		private: System::Void clr_inp_field2_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей.
 		{
@@ -753,7 +757,7 @@ namespace My1lab {
 					return;
 				}
 				bool allowInput = true;	// Булевое значение для проверки ввода новых значений после записи в массив предыдущих.
-				int num = System::Convert::ToInt32(input_field2->Text); // Конвертирует введённые значения в числовые.
+				int num = System::Convert::ToInt32(input_field2->Text); // Конвертирует num введённые значения в числовые.
 				this->input_field2->Text = ""; // Очищает поле ввода для последующего ввода значений.
 
 				if (in_label->Text->Split('\n')->Length - 1 == 6 && num != 0) // Проверка на количество строк в списке ввода.
