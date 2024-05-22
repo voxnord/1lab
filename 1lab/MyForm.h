@@ -556,6 +556,16 @@ namespace My1lab {
 			return 0;
 		}
 
+		private: System::Void input_field1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы.
+		{
+			if (en->KeyChar == (char)Keys::Enter)
+			{
+				button_start1_Click(sender, en); // Вызываем обработчик события нажатия кнопки button_start1.
+				
+				en->Handled = true; // Предотвращаем дальнейшую обработку нажатия клавиши Enter.
+			}
+		}
+
 		private: System::Void clr_inp_field1_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей и галочек.
 		{
 			this->recursionbtn1->Checked = false;        // Убирает галочку с кнопки рекурскии 1.
@@ -686,95 +696,83 @@ namespace My1lab {
 
 			if ((index + 1) % 2 != 0) // Проверка, является ли индекс плюс один нечетным числом для выбора через один.
 			{
-				out_label->Text += numbers[index] + "\r\n"; // Если индекс плюс один нечетный, то добавляем текущий элемент массива и перенос новой строки в поле вывода.
+				out_label->Text += numbers[index] + "\r\n"; // Если индекс плюс один нечетный, то добавляем текущий элемент массива и перенос новой строки в списке вывода.
 			}
 
 			recursion_3(numbers, index + 1); // Рекурсивный вызов функции с увеличенным на единицу индексом для проверки последующих элементов.
 		}
 
-		private: System::Void clr_inp_field2_Click(System::Object^ sender, System::EventArgs^ e) 
+		private: System::Void clr_inp_field2_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей.
 		{
-			this->input_field2->Text = "";
-			this->in_label->Text = "";
-			this->out_label->Text = "";
+			this->input_field2->Text = ""; // Очищает поле ввода.
+			this->in_label->Text = ""; // Очищает список ввода массива чисел.
+			this->out_label->Text = ""; // Очищает вывод массива чисел.
 
-			if (!button_start2->Enabled) 
+			if (!button_start2->Enabled) // Взводит кнопку старта.
 			{
 				button_start2->Enabled = true;
 			}
 		}
 
-		private: System::Void input_field1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы
+		private: System::Void input_field2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы.
 		{
-				if (en->KeyChar == (char)Keys::Enter)
-				{
-					// Вызываем обработчик события нажатия кнопки button_start1
-					button_start1_Click(sender, en);
-					// Предотвращаем дальнейшую обработку нажатия клавиши Enter
-					en->Handled = true;
-				}
-		}
 
-		private: System::Void input_field2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы
-		{
-			//Проверяем, нажата ли клавиша Enter
-			if (en->KeyChar == (char)Keys::Enter)
+			if (en->KeyChar == (char)Keys::Enter) //Проверяем, нажата ли клавиша Enter.
 			{
-				// Вызываем обработчик события нажатия кнопки input_button
-				input_button_Click(sender, en);
-				// Предотвращаем дальнейшую обработку нажатия клавиши Enter
-				en->Handled = true;
+				input_button_Click(sender, en); // Вызываем обработчик события нажатия кнопки input_button.
+				
+				en->Handled = true; // Предотвращаем дальнейшую обработку нажатия клавиши Enter.
 			}
 		}
 
-		private: System::Void input_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		private: System::Void input_button_Click(System::Object^ sender, System::EventArgs^ e) // Кнопка ввода значений в массив.
 		{
 
-			if (this->input_field2->Text == "")
+			if (this->input_field2->Text == "") // Проверка пустого поля ввода.
 			{
 				MessageBox::Show("Поле ввода не может быть пустым!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 
-			if (in_label->Text->Split('\n')->Length - 1 >= 7) {
+			if (in_label->Text->Split('\n')->Length - 1 >= 7) // Проверка количества строк в списке вводе массива.
+			{
 				MessageBox::Show("Превышено максимальное количество строк.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
-			if (input_field2->Text->Length > 6)
+			if (input_field2->Text->Length > 6) // Проверка количества введённых символов в поле ввода.
 			{
 				MessageBox::Show("Длина введенного числа превышает максимальное допустимое значение.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
 		
-			if (input_field2->Text != "") {
-
+			if (input_field2->Text != "") 
+			{
 				int exclude;
-				if (!Int32::TryParse(input_field2->Text, exclude))
+				if (!Int32::TryParse(input_field2->Text, exclude)) // Проверка на наличие нечисловых значений.
 				{
-					// Если введенное значение не является числом, выводим сообщение об ошибке
 					MessageBox::Show("Поле ввода должно содержать только числовые значения и не содержать пробелов между цифрами/числами!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					return;
 				}
-				bool allowInput = true;	
-				int num = System::Convert::ToInt32(input_field2->Text);
-				this->input_field2->Text = "";
+				bool allowInput = true;	// Булевое значение для проверки ввода новых значений после записи в массив предыдущих.
+				int num = System::Convert::ToInt32(input_field2->Text); // Конвертирует введённые значения в числовые.
+				this->input_field2->Text = ""; // Очищает поле ввода для последующего ввода значений.
 
-				if (in_label->Text->Split('\n')->Length - 1 == 6 && num != 0) 
+				if (in_label->Text->Split('\n')->Length - 1 == 6 && num != 0) // Проверка на количество строк в списке ввода.
 				{
 					MessageBox::Show("Количество строк достигло максимального значения.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					return;
 				}
 					
-				if (in_label->Text->Split('\n')->Length - 1 == 5 && num != 0) 
+				if (in_label->Text->Split('\n')->Length - 1 == 5 && num != 0) // Условие для добавления в конец 0 по достижении 5 строк.
 				{
 					in_label->Text += "0\n";
-					allowInput = false;
+					allowInput = false; 
 				}
 				else
 				{
-					// Проверяем, разрешен ли ввод новых значений
-					if (allowInput)
+					
+					if (allowInput) // Проверка, разрешен ли ввод новых значений.
 					{
-						in_label->Text += num + "\r\n";
+						in_label->Text += num + "\r\n"; // Добавление введённого числа в ввод и перенос строки в списке ввода.
 					}
 				}
 
@@ -783,22 +781,24 @@ namespace My1lab {
         
         private: System::Void button_start2_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			array<String^>^ numbers = in_label->Text->Split(gcnew array<wchar_t> {'\n', '\r'}, StringSplitOptions::RemoveEmptyEntries);
+			array<String^>^ numbers = in_label->Text->Split(gcnew array<wchar_t> {'\n', '\r'}, StringSplitOptions::RemoveEmptyEntries); // Разделение значений в массиве для того, чтобы возможно было обеспечить работу рекурсивной функции.
 
-			if (numbers->Length == 0) {
+			if (numbers->Length == 0) // Условие для проверки пуст ли список ввода.
+			{
 				MessageBox::Show("Список чисел пуст.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
-			// Проверяем, что последний элемент является строкой "0"
-			if (numbers[numbers->Length - 1] != "0") {
+			
+			if (numbers[numbers->Length - 1] != "0") // Проверяем, что последний элемент является 0.
+			{
 				MessageBox::Show("Последнее число не равно \"0\".", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
-			recursion_3(numbers, 0);
+			recursion_3(numbers, 0); // Начинает рекурсию после всех проверок и записи массива чисел.
 
-			button_start2->Enabled = false;
+			button_start2->Enabled = false; // Отключает кнопку старта для предотвращения дальнейшего нажатия.
 			
 		}
         
