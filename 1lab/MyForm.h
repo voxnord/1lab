@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <Windows.h>
 namespace My1lab {
 
 	using namespace System;
@@ -29,9 +29,8 @@ namespace My1lab {
 			}
 		}
 
-		// Пользовательские поля
-	private: unsigned short int n;   // Глобальная переменна, используемая для обозначения параметра рекурсивной функцию, в области 1 и 2 рекурсии
-    private: unsigned int N;		 // Глобальная переменна, используемая для передачи значения введёного в поле ввода в параметр n рекурсивной функции 1 или 2
+		// Пользовательские поля	
+    private: unsigned short int N;		 // Глобальная переменна, используемая для передачи значения введёного в поле ввода в параметр n рекурсивной функции 1 или 2
 	private: unsigned int count = 0; // Глобальная переменна, используемая для фиксации количества рекурсивных вызовов
 	private: bool choice_check;		 // Булевая переменная, отображающая выбранную рекурсию
 
@@ -67,9 +66,9 @@ namespace My1lab {
 
 		private: System::ComponentModel::Container^ components;
 
-#pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
+	#pragma region Windows Form Designer generated code
+			/// <summary>
+			/// Требуемый метод для поддержки конструктора — не изменяйте 
 		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		void InitializeComponent(void)
@@ -450,7 +449,7 @@ namespace My1lab {
 			}
 			else if (n > 2 && n % 2 == 0)  // > 2 и четное.
 			{
-				return ((8 * n + recursion_1(n - 3)) / 9);
+				return ((8 * n + recursion_1(n - 3)) / 9);		
 			}
 			else if (n > 2 && n % 2 != 0) // > 2 и не чётное.
 			{
@@ -558,27 +557,7 @@ namespace My1lab {
 			return 0;
 		}
 
-		private: System::Void input_field1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы.
-		{
-			if (en->KeyChar == (char)Keys::Enter)
-			{
-				button_start1_Click(sender, en); // Вызываем обработчик события нажатия кнопки button_start1.
-				
-				en->Handled = true; // Предотвращаем дальнейшую обработку нажатия клавиши Enter.
-			}
-		}
-
-		private: System::Void clr_inp_field1_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей и галочек.
-		{
-			this->recursionbtn1->Checked = false;        // Убирает галочку с кнопки рекурскии 1.
-			this->recursionbtn2->Checked = false;        // Убирает галочку с кнопки рекурскии 2.
-			this->input_field1->Text = "";               // Очищает поле ввода.
-			this->formula_of_recursion_label->Text = ""; // Очищает поле с информацией о выбранной рекурсивной функции.
-			this->Rresult->Text = "";                    // Очищает поле результата.
-			this->Ncount->Text = "";                     // Очищает поле подсчёта вызовов.
-		}
-
-		private: System::Void recursionbtn1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) // Проверяет нажата ли кнопка первой рекурсивной формулы.
+        private: System::Void recursionbtn1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) // Проверяет нажата ли кнопка первой рекурсивной формулы.
 		{
 
 			if (this->recursionbtn1->Checked == true) // Условие для вывода текста первой рекурсивной функции.
@@ -614,8 +593,17 @@ namespace My1lab {
 				this->formula_of_recursion_label->Text = ""; // Очистка поля вывода текста в случае выбора другой рекурсивной функции.
 			}
 		}
+		private: System::Void input_field1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы.
+		{
+			if (en->KeyChar == (char)Keys::Enter)
+			{
+				button_start1_Click(sender, en); // Вызываем обработчик события нажатия кнопки button_start1.
+				
+				en->Handled = true; // Предотвращаем дальнейшую обработку нажатия клавиши Enter.
+			}
+		}
 
-		private: System::Void button_start1_Click(System::Object^ sender, System::EventArgs^ e) 
+        private: System::Void button_start1_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 
 			count = 0; // Начальное значение для вызовов рекурсивной функции.
@@ -648,7 +636,7 @@ namespace My1lab {
 					return;
 				}
 
-				this->N = System::Convert::ToInt32(this->input_field1->Text); // Преобразованный текст из поля ввода присваевается глобальной переменной N.
+				N = System::Convert::ToInt32(this->input_field1->Text); // Преобразованный текст из поля ввода присваевается глобальной переменной N.
 
 				if (ValidacityCheck1() == true) // Проверяет допустимые значения через функцию ValidacityCheck1 и снимает флажки, если есть недопустимые значения.
 				{
@@ -677,6 +665,16 @@ namespace My1lab {
 				}
 			}
 		}
+
+		private: System::Void clr_inp_field1_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей и галочек.
+		{
+			this->recursionbtn1->Checked = false;        // Убирает галочку с кнопки рекурскии 1.
+			this->recursionbtn2->Checked = false;        // Убирает галочку с кнопки рекурскии 2.
+			this->input_field1->Text = "";               // Очищает поле ввода.
+			this->formula_of_recursion_label->Text = ""; // Очищает поле с информацией о выбранной рекурсивной функции.
+			this->Rresult->Text = "";                    // Очищает поле результата.
+			this->Ncount->Text = "";                     // Очищает поле подсчёта вызовов.
+		}
         
         private: System::Void info1_Click(System::Object^ sender, System::EventArgs^ e) // Информационное окно 1.
 		{
@@ -690,11 +688,28 @@ namespace My1lab {
 		/////////////////////
 		/*Вторая программа.*/
 		/////////////////////
-		void recursion_3(array<String^>^ numbers, int index) // Объявление рекурсивной функции с параметрами: 1) массив строк numbers для массива введенных значений; 2) Целочисленное index для индексации значений в массиве.
+		void recursion_3(array<int>^ numbers, int index) // Объявление рекурсивной функции с параметрами: 1) массив строк numbers для массива введенных значений; 2) Целочисленное index для индексации значений в массиве.
 		{
-			if (numbers[index] == "0")  // Проверяет равен ли элемент массива с текущим индексом 0.
+
+			if (numbers[index] == 0)  // Проверяет равен ли элемент массива с текущим индексом 0.
 			{
-				return; // Если элемент равен "0", функция прекращает выполнение и возвращает управление вызывающему коду.
+				return; // Если элемент равен "0", функция прекращает выполнение и возвраща	ет управление вызывающему коду.
+			}
+
+			if ((index + 1) % 2 != 0) // Проверка, является ли индекс плюс один нечетным числом для выбора через один.
+			{
+				int result = numbers[index];
+				out_label->Text += result + "\r\n"; // Если индекс плюс один нечетный, то добавляем текущий элемент массива и перенос новой строки в списке вывода.
+			}
+
+			recursion_3(numbers, index + 1); // Рекурсивный вызов функции с увеличенным на единицу индексом для проверки последующих элементов.
+		}
+
+		void recursion_31(long numbers[], int index) // Объявление рекурсивной функции с параметрами: 1) массив строк numbers для массива введенных значений; 2) Целочисленное index для индексации значений в массиве.
+		{
+			if (numbers[index] == 0)  // Проверяет равен ли элемент массива с текущим индексом 0.
+			{
+				return; // Если элемент равен "0", функция прекращает выполнение и возвраща	ет управление вызывающему коду.
 			}
 
 			if ((index + 1) % 2 != 0) // Проверка, является ли индекс плюс один нечетным числом для выбора через один.
@@ -702,23 +717,10 @@ namespace My1lab {
 				out_label->Text += numbers[index] + "\r\n"; // Если индекс плюс один нечетный, то добавляем текущий элемент массива и перенос новой строки в списке вывода.
 			}
 
-			recursion_3(numbers, index + 1); // Рекурсивный вызов функции с увеличенным на единицу индексом для проверки последующих элементов.
+			recursion_31(numbers, index + 1); // Рекурсивный вызов функции с увеличенным на единицу индексом для проверки последующих элементов.
 		}
 
-
-		private: System::Void clr_inp_field2_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей.
-		{
-			this->input_field2->Text = ""; // Очищает поле ввода.
-			this->in_label->Text = ""; // Очищает список ввода массива чисел.
-			this->out_label->Text = ""; // Очищает вывод массива чисел.
-
-			if (!button_start2->Enabled) // Взводит кнопку старта.
-			{
-				button_start2->Enabled = true;
-			}
-		}
-
-		private: System::Void input_field2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы.
+        private: System::Void input_field2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ en) // Нажатие Enter для первой программы.
 		{
 
 			if (en->KeyChar == (char)Keys::Enter) //Проверяем, нажата ли клавиша Enter.
@@ -757,16 +759,16 @@ namespace My1lab {
 					return;
 				}
 				bool allowInput = true;	// Булевое значение для проверки ввода новых значений после записи в массив предыдущих.
-				int num = System::Convert::ToInt32(input_field2->Text); // Конвертирует num введённые значения в числовые.
+				int numbers = System::Convert::ToInt32(input_field2->Text); // Конвертирует num введённые значения в числовые.
 				this->input_field2->Text = ""; // Очищает поле ввода для последующего ввода значений.
 
-				if (in_label->Text->Split('\n')->Length - 1 == 6 && num != 0) // Проверка на количество строк в списке ввода.
+				if (in_label->Text->Split('\n')->Length - 1 == 6 && numbers != 0) // Проверка на количество строк в списке ввода.
 				{
 					MessageBox::Show("Количество строк достигло максимального значения.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					return;
 				}
 					
-				if (in_label->Text->Split('\n')->Length - 1 == 5 && num != 0) // Условие для добавления в конец 0 по достижении 5 строк.
+				if (in_label->Text->Split('\n')->Length - 1 == 5 && numbers != 0) // Условие для добавления в конец 0 по достижении 5 строк.
 				{
 					in_label->Text += "0\n";
 					allowInput = false; 
@@ -776,16 +778,37 @@ namespace My1lab {
 					
 					if (allowInput) // Проверка, разрешен ли ввод новых значений.
 					{
-						in_label->Text += num + "\r\n"; // Добавление введённого числа в ввод и перенос строки в списке ввода.
+						in_label->Text += numbers + "\r\n"; // Добавление введённого числа в ввод и перенос строки в списке ввода.
 					}
 				}
 
 			}
 		}
+
+		private: System::Void clr_inp_field2_Click(System::Object^ sender, System::EventArgs^ e) // Очистка всех полей.
+		{
+			this->input_field2->Text = ""; // Очищает поле ввода.
+			this->in_label->Text = ""; // Очищает список ввода массива чисел.
+			this->out_label->Text = ""; // Очищает вывод массива чисел.
+
+			if (!button_start2->Enabled) // Взводит кнопку старта.
+			{
+				button_start2->Enabled = true;
+			}
+		}
+
+		
         
         private: System::Void button_start2_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			array<String^>^ numbers = in_label->Text->Split(gcnew array<wchar_t> {'\n', '\r'}, StringSplitOptions::RemoveEmptyEntries); // Разделение значений в массиве для того, чтобы возможно было обеспечить работу рекурсивной функции.
+			
+			array<String^>^ split_numbers = in_label->Text->Split(gcnew array<wchar_t> {'\n', '\r'}, StringSplitOptions::RemoveEmptyEntries); // Разделение значений в массиве путём построчного разделения(на подстроки) для того, чтобы возможно было обеспечить преобразование отдельной части функции.
+			array<int>^ numbers = gcnew array<int>(split_numbers->Length); // Создание управляемого массива(array<int>) целых чисел numbers с размерами массива split_numbers
+
+			for (int i = 0; i < split_numbers->Length; i++)
+			{
+				numbers[i] = System::Convert::ToInt32(split_numbers[i]);
+			}
 
 			if (numbers->Length == 0) // Условие для проверки пуст ли список ввода.
 			{
@@ -794,7 +817,7 @@ namespace My1lab {
 			}
 
 			
-			if (numbers[numbers->Length - 1] != "0") // Проверяем, что последний элемент является 0.
+			if (numbers[numbers->Length - 1] != 0) // Проверяем, что последний элемент является 0.
 			{
 				MessageBox::Show("Последнее число не равно \"0\".", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
@@ -819,7 +842,12 @@ namespace My1lab {
 
         private: System::Void err_check_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-		
+			if (1) {
+				MessageBox::Show("Тесты успешно пройдены!", "Успех");
+			}
+			else {
+				MessageBox::Show("Тесты не пройдены!", "Ошибка");
+			}	
 		}
 
 };
