@@ -610,13 +610,13 @@ namespace My1lab {
 
 			if (this->input_field1->Text == "") // Условие для проверки на наличие значений в поле ввода.
 			{
-				MessageBox::Show("Поле ввода пусто!", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show("Поле ввода пусто!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
 
 			if (this->recursionbtn1->Checked == false && this->recursionbtn2->Checked == false)  // Условие для проверки на наличие выбора рекурсивной функции.
 			{
-				MessageBox::Show("Не выбрана ни одна из рекурсивных формул!", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show("Не выбрана ни одна из рекурсивных формул!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
 
@@ -724,16 +724,18 @@ namespace My1lab {
 				MessageBox::Show("Поле ввода не может быть пустым!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 
-			if (in_label->Text->Split('\n')->Length - 1 >= 7) // Проверка количества строк в списке вводе массива.
-			{
-				MessageBox::Show("Превышено максимальное количество строк.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				return;
-			}
 			if (input_field2->Text->Length > 6) // Проверка количества введённых символов в поле ввода.
 			{
 				MessageBox::Show("Длина введенного числа превышает максимальное допустимое значение.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
+
+			if (in_label->Text->Split('\n')->Length - 1 >= 7) // Проверка количества строк в списке вводе массива.
+			{
+				MessageBox::Show("Превышено максимальное количество строк!", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}		
+			
 		
 			if (input_field2->Text != "") 
 			{
@@ -744,7 +746,7 @@ namespace My1lab {
 					return;
 				}
 				bool allowInput = true;	// Булевое значение для проверки ввода новых значений после записи в массив предыдущих.
-				int numbers = System::Convert::ToInt32(input_field2->Text); // Конвертирует num введённые значения в числовые.
+				int numbers = System::Convert::ToInt32(input_field2->Text); // Конвертирует numbers введённые значения в числовые.
 				this->input_field2->Text = ""; // Очищает поле ввода для последующего ввода значений.
 
 				if (in_label->Text->Split('\n')->Length - 1 == 6 && numbers != 0) // Проверка на количество строк в списке ввода.
